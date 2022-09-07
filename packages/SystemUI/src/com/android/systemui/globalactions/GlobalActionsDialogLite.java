@@ -2637,7 +2637,6 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         protected Drawable mBackgroundDrawable;
         protected final SysuiColorExtractor mColorExtractor;
         private boolean mKeyguardShowing;
-        protected float mScrimAlpha;
         protected final LightBarController mLightBarController;
         private final KeyguardStateController mKeyguardStateController;
         protected final NotificationShadeWindowController mNotificationShadeWindowController;
@@ -2890,6 +2889,11 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
             }
 
             getWindow().setDimAmount(mBlurUtils.supportsBlursOnWindows() ? 0.54f : 0.88f);
+            float bgAlpha = 0.88f;
+            if (mBlurUtils.supportsBlursOnWindows()) {
+                bgAlpha = 0.54f;
+            }
+            getWindow().setDimAmount(bgAlpha);
 
             // If user entered from the lock screen and smart lock was enabled, disable it
             int user = mSelectedUserInteractor.getSelectedUserId();
